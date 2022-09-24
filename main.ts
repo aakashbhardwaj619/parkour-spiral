@@ -9,7 +9,7 @@
 //% color="#AA278D" weight=100
 namespace parkour {
     //% block="create a parkour spiral || made of $blockType | with $levels levels"
-    //% levels.defl=20
+    //% levels.defl=6
     //% blockType.defl=Block.NetherWartBlock
     //% expandableArgumentMode="toggle"
     //% blockType.fieldEditor="gridpicker"
@@ -18,7 +18,7 @@ namespace parkour {
     //% blockType.fieldOptions.maxRows="8"
     //% blockType.fieldOptions.hasSearchBar=true
     //% blockType.fieldOptions.hideRect=true
-    export function createParkourSpiral(blockType: Block = Block.NETHER_WART_BLOCK, levels: number = 6) {
+    export function createParkourSpiral(blockType: Block = Block.NetherWartBlock, levels: number = 6) {
         let ns = 0
         let ew = 0
         let initialHeight = 5
@@ -102,7 +102,7 @@ namespace parkour {
     //% fenceType.fieldOptions.maxRows="8"
     //% fenceType.fieldOptions.hasSearchBar=true
     //% fenceType.fieldOptions.hideRect=true
-    export function createPool(poolSize: number = 20, poolType: Block = Block.Lava, fenceType: Block = Block.RED_NETHER_BRICK) {
+    export function createPool(poolSize: number = 20, poolType: Block = Block.Lava, fenceType: Block = Block.RedNetherBrick) {
         let a = poolSize / 4;
         let b = (3 * poolSize) / 4;
         blocks.fill(
