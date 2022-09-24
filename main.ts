@@ -8,86 +8,118 @@
 
 //% color="#AA278D" weight=100
 namespace parkour {
-    //% block="Create Parkour Spiral"
-    export function createParkourSpiral() {
-        let initHeight = 0
-        let x = 0
-        let y = 0
-        let height = 0
-        let levels = 0
-        let currLevel = 0
-        let gap = 0
-        gameplay.title(mobs.target(LOCAL_PLAYER), "Parkour Spiral", "Let's play")
-        x = 0
-        y = 0
-        height = 5
-        initHeight = height
-        levels = 6
-        currLevel = levels
-        gap = 2
+    //% block="create a parkour spiral || made of $blockType | with $levels levels"
+    //% levels.defl=20
+    //% blockType.defl=Block.NetherWartBlock
+    //% expandableArgumentMode="toggle"
+    //% blockType.fieldEditor="gridpicker"
+    //% blockType.fieldOptions.width=340 blockType.fieldOptions.columns=8 blockType.fieldOptions.tooltips=true
+    //% blockType.fieldOptions.tooltipsXOffset="20" blockType.fieldOptions.tooltipsYOffset="-20"
+    //% blockType.fieldOptions.maxRows="8"
+    //% blockType.fieldOptions.hasSearchBar=true
+    //% blockType.fieldOptions.hideRect=true
+    export function createParkourSpiral(blockType: Block = Block.NETHER_WART_BLOCK, levels: number = 6) {
+        let ns = 0
+        let ew = 0
+        let initialHeight = 5
+        let gap = 2
+        let height = initialHeight
+        let currLevel = levels
+
         for (let index = 0; index < levels && currLevel > 0; index++) {
             for (let index2 = 0; index2 < currLevel; index2++) {
-                blocks.fill(
-                    NETHER_WART_BLOCK,
-                    pos(y, height, x),
-                    pos(y, height, x),
-                    FillOperation.Replace
-                )
-                x += gap
+                createBlock(blockType, ew, height, ns)
+                ns += gap
             }
             height += 1
             currLevel += 0 - 1
-            y += gap
+            ew += gap
             for (let index3 = 0; index3 < currLevel; index3++) {
-                blocks.fill(
-                    NETHER_WART_BLOCK,
-                    pos(y, height, x),
-                    pos(y, height, x),
-                    FillOperation.Replace
-                )
-                y += gap
+                createBlock(blockType, ew, height, ns)
+                ew += gap
             }
             height += 1
-            x += 0 - gap
+            ns += 0 - gap
             for (let index4 = 0; index4 < currLevel; index4++) {
-                blocks.fill(
-                    NETHER_WART_BLOCK,
-                    pos(y, height, x),
-                    pos(y, height, x),
-                    FillOperation.Replace
-                )
-                x += 0 - gap
+                createBlock(blockType, ew, height, ns)
+                ns += 0 - gap
             }
             height += 1
-            y += 0 - gap
+            ew += 0 - gap
             currLevel += 0 - 1
             for (let index5 = 0; index5 < currLevel; index5++) {
-                blocks.fill(
-                    NETHER_WART_BLOCK,
-                    pos(y, height, x),
-                    pos(y, height, x),
-                    FillOperation.Replace
-                )
-                y += 0 - gap
+                createBlock(blockType, ew, height, ns)
+                ew += 0 - gap
             }
             height += 1
         }
         blocks.fill(
             YELLOW_WOOL,
-            pos(y + 2, height - 2, x + 2),
-            pos(y + 2, height - 2, x + 2),
+            pos(ew + 2, height - 2, ns + 2),
+            pos(ew + 2, height - 2, ns + 2),
             FillOperation.Replace
         )
-        blocks.fill(
-            LAVA,
-            pos(-5, -1, -5),
-            pos(15, -1, 15),
-            FillOperation.Replace
-        )
-        player.teleport(pos(0, initHeight + 1, 0))
+        player.teleport(pos(0, initialHeight + 1, 0))
+        gameplay.title(mobs.target(LOCAL_PLAYER), "Parkour Spiral", "Let's play")
         gameplay.setGameMode(
             SURVIVAL,
             mobs.target(LOCAL_PLAYER)
         )
+    }
+
+    function createBlock(blockType: number, we: number, ud: number, ns: number) {
+        blocks.fill(
+            blockType,
+            pos(we, ud, ns),
+            pos(we, ud, ns),
+            FillOperation.Replace
+        )
+    }
+
+    function createPoolFence(fenceType: number, we: number, ud: number, ns: number, we2: number, ud2: number, ns2: number) {
+        blocks.fill(
+            fenceType,
+            pos(we, ud, ns),
+            pos(we2, ud2, ns2),
+            FillOperation.Outline
+        )
+    }
+
+    //% block="create a pool || filled with $poolType | of size $poolSize | and fence $fenceType"
+    //% poolSize.defl=20
+    //% poolType.defl=Block.Lava
+    //% fenceType.defl=Block.RedNetherBrick
+    //% expandableArgumentMode="toggle"
+    //% poolType.fieldEditor="gridpicker"
+    //% poolType.fieldOptions.width=340 poolType.fieldOptions.columns=8 poolType.fieldOptions.tooltips=true
+    //% poolType.fieldOptions.tooltipsXOffset="20" poolType.fieldOptions.tooltipsYOffset="-20"
+    //% poolType.fieldOptions.maxRows="8"
+    //% poolType.fieldOptions.hasSearchBar=true
+    //% poolType.fieldOptions.hideRect=true
+    //% fenceType.fieldEditor="gridpicker"
+    //% fenceType.fieldOptions.width=340 fenceType.fieldOptions.columns=8 fenceType.fieldOptions.tooltips=true
+    //% fenceType.fieldOptions.tooltipsXOffset="20" fenceType.fieldOptions.tooltipsYOffset="-20"
+    //% fenceType.fieldOptions.maxRows="8"
+    //% fenceType.fieldOptions.hasSearchBar=true
+    //% fenceType.fieldOptions.hideRect=true
+    export function createPool(poolSize: number = 20, poolType: Block = Block.Lava, fenceType: Block = Block.RED_NETHER_BRICK) {
+        let a = poolSize / 4;
+        let b = (3 * poolSize) / 4;
+        blocks.fill(
+            poolType,
+            pos(-a, -1, -a),
+            pos(b, -1, b),
+            FillOperation.Replace
+        )
+        blocks.fill(
+            fenceType,
+            pos(-a, -2, -a),
+            pos(b, -2, b),
+            FillOperation.Replace
+        )
+        createPoolFence(fenceType, -a, 1, -a, -a, 1, b);
+        createPoolFence(fenceType, b, 1, -a, b, 1, b);
+        createPoolFence(fenceType, -a, 1, -a, b, 1, -a);
+        createPoolFence(fenceType, -a, 1, b, b, 1, b);
     }
 }
