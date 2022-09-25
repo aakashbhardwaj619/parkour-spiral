@@ -108,7 +108,7 @@ namespace parkour {
         blocks.fill(
             poolType,
             pos(-a, -1, -a),
-            pos(b, -1, b),
+            pos(b, 0, b),
             FillOperation.Replace
         )
         blocks.fill(
@@ -117,9 +117,9 @@ namespace parkour {
             pos(b, -2, b),
             FillOperation.Replace
         )
-        createPoolFence(fenceType, -a, 1, -a, -a, 1, b);
-        createPoolFence(fenceType, b, 1, -a, b, 1, b);
-        createPoolFence(fenceType, -a, 1, -a, b, 1, -a);
-        createPoolFence(fenceType, -a, 1, b, b, 1, b);
+        createPoolFence(fenceType, -a, -2, -a, -a, 2, b);
+        createPoolFence(fenceType, b, -2, -a, b, 2, b);
+        createPoolFence(fenceType, -a, -2, -a, b, 2, -a);
+        createPoolFence(fenceType, -a, -2, b, b, 2, b);
     }
 }
