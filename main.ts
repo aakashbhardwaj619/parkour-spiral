@@ -25,6 +25,7 @@ namespace parkour {
         let gap = 2
         let height = initialHeight
         let currLevel = levels
+        player.teleport(pos(0, initialHeight + 1, 0))
 
         for (let index = 0; index < levels && currLevel > 0; index++) {
             for (let index2 = 0; index2 < currLevel; index2++) {
@@ -59,7 +60,6 @@ namespace parkour {
             pos(ew + 2, height - 2, ns + 2),
             FillOperation.Replace
         )
-        player.teleport(pos(0, initialHeight + 1, 0))
         gameplay.title(mobs.target(LOCAL_PLAYER), "Parkour Spiral", "Let's play")
         gameplay.setGameMode(
             SURVIVAL,
