@@ -53,13 +53,13 @@ namespace parkour {
             }
             height += 1
         }
-        player.teleport(pos(0, initialHeight + 1, 0))
         blocks.fill(
             YELLOW_WOOL,
             pos(ew + 2, height - 2, ns + 2),
             pos(ew + 2, height - 2, ns + 2),
             FillOperation.Replace
         )
+        player.teleport(pos(0, initialHeight + 1, 0))
         gameplay.title(mobs.target(LOCAL_PLAYER), "Parkour Spiral", "Let's play")
         gameplay.setGameMode(
             SURVIVAL,
