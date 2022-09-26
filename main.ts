@@ -25,8 +25,7 @@ namespace parkour {
         let gap = 2
         let height = initialHeight
         let currLevel = levels
-        player.teleport(pos(0, initialHeight + 1, 0))
-
+        
         for (let index = 0; index < levels && currLevel > 0; index++) {
             for (let index2 = 0; index2 < currLevel; index2++) {
                 createBlock(blockType, ew, height, ns)
@@ -54,6 +53,7 @@ namespace parkour {
             }
             height += 1
         }
+        player.teleport(pos(0, initialHeight + 1, 0))
         blocks.fill(
             YELLOW_WOOL,
             pos(ew + 2, height - 2, ns + 2),
@@ -103,6 +103,10 @@ namespace parkour {
     //% fenceType.fieldOptions.hasSearchBar=true
     //% fenceType.fieldOptions.hideRect=true
     export function createPool(poolSize: number = 20, poolType: Block = Block.Lava, fenceType: Block = Block.RedNetherBrick) {
+        gameplay.setGameMode(
+            CREATIVE,
+            mobs.target(LOCAL_PLAYER)
+        )
         let a = poolSize / 4;
         let b = (3 * poolSize) / 4;
         blocks.fill(
